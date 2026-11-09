@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía práctica | Arrays en JavaScript</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="hero">
+            <div class="eyebrow">Guía de aprendizaje · Desarrollo web</div>
+            <h1>Arrays en JavaScript</h1>
+            <p>Explicación, preparación del proyecto y cuatro ejercicios prácticos con HTML y JavaScript. Aprende a
+                almacenar, recorrer, consultar y modificar colecciones de datos.</p>
+            <span class="tag">HTML</span><span class="tag">CSS básico</span><span class="tag">JavaScript</span><span
+                class="tag">Nivel básico–intermedio</span>
+        </div>
+    </header>
+    <div class="layout">
+        <nav>
+            <strong>Contenido de la guía</strong>
+            <a href="#objetivos">Objetivo y ruta</a>
+            <a href="#conceptos">1. ¿Qué es un array?</a>
+            <a href="#metodos">2. Métodos y propiedades</a>
+            <a href="#proyecto">3. Crear el proyecto</a>
+            <a href="#ej1">4. Ejercicio 1</a>
+            <a href="#ej2">5. Ejercicio 2</a>
+            <a href="#ej3">6. Ejercicio 3</a>
+            <a href="#ej4">7. Ejercicio 4</a>
+        </nav>
+        <main>
+            <section id="objetivos">
+                <h2>Objetivo de aprendizaje</h2>
+                <p>Utilizar arreglos en JavaScript para almacenar y administrar varios datos desde una página web,
+                    conectando formularios HTML con instrucciones JavaScript.</p>
+                <h3>Al finalizar podrás:</h3>
+                <ul class="checklist">
+                    <li>Crear arreglos y guardar elementos con <code class="inline">push()</code>.</li>
+                    <li>Consultar la cantidad de elementos con <code class="inline">length</code>.</li>
+                    <li>Recorrer arreglos mediante ciclos <code class="inline">for</code>.</li>
+                    <li>Realizar cálculos y búsquedas sobre los datos.</li>
+                    <li>Trabajar con arreglos de objetos y mostrar información en una tabla.</li>
+                    <li>Eliminar elementos y actualizar la información de la página.</li>
+                </ul>
+                <div class="note"><strong>Forma de trabajo:</strong> crea los archivos, escribe el código paso a paso,
+                    prueba cada funcionalidad y verifica los resultados antes de continuar. No copies todo sin
+                    comprenderlo.</div>
+            </section>
+
+            <section id="conceptos">
+                <h2>1. ¿Qué es un array?</h2>
+                <p>Un <strong>array</strong> (arreglo) es una estructura que permite guardar varios valores dentro de
+                    una sola variable. Los elementos se organizan en posiciones llamadas <strong>índices</strong>. El
+                    primer índice siempre es <code class="inline">0</code>.</p>
+                <h3>Ejemplo</h3>
+                <pre><code>let frutas = ["Manzana", "Pera", "Mango"];
+
+console.log(frutas[0]); // Manzana
+console.log(frutas[1]); // Pera
+console.log(frutas[2]); // Mango</code></pre>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Índice</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>Manzana</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Pera</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Mango</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note warning"><strong>Importante:</strong> para acceder al primer elemento se utiliza <code
+                        class="inline">frutas[0]</code>, no <code class="inline">frutas[1]</code>.</div>
+                <h3>Crear arreglos</h3>
+                <pre><code>// Array vacío
+let nombres = [];
+
+// Array con datos
+let edades = [18, 20, 25, 30];
+
+// Array de textos
+let ciudades = ["Medellín", "Cali", "Bogotá"];</code></pre>
+                <h3>Agregar elementos</h3>
+                <p>El método <code class="inline">push()</code> agrega un elemento al final del arreglo.</p>
+                <pre><code>let colores = ["Azul", "Rojo"];
+colores.push("Verde");
+
+console.log(colores);
+// ["Azul", "Rojo", "Verde"]</code></pre>
+                <h3>Recorrer un array con for</h3>
+                <p>El ciclo permite visitar cada posición del arreglo. Se inicia en cero y se repite mientras el índice
+                    sea menor que la cantidad de elementos.</p>
+                <pre><code>let animales = ["Perro", "Gato", "Conejo"];
+
+for (let i = 0; i &lt; animales.length; i++) {
+    console.log(animales[i]);
+}</code></pre>
+                <p>En cada repetición, <code class="inline">i</code> representa la posición que se está consultando.</p>
+            </section>
+
+            <section id="metodos">
+                <h2>2. Métodos y propiedades principales</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>¿Para qué sirve?</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>push()</code></td>
+                            <td>Agrega al final.</td>
+                            <td><code>nombres.push("Ana")</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>pop()</code></td>
+                            <td>Elimina el último elemento.</td>
+                            <td><code>nombres.pop()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>splice()</code></td>
+                            <td>Elimina o reemplaza elementos por posición.</td>
+                            <td><code>nombres.splice(1, 1)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>length</code></td>
+                            <td>Devuelve la cantidad de elementos.</td>
+                            <td><code>nombres.length</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>includes()</code></td>
+                            <td>Comprueba si existe un valor exacto.</td>
+                            <td><code>nombres.includes("Ana")</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>indexOf()</code></td>
+                            <td>Devuelve la posición; si no existe, devuelve -1.</td>
+                            <td><code>nombres.indexOf("Ana")</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>find()</code></td>
+                            <td>Devuelve el primer elemento que cumple una condición.</td>
+                            <td><code>numeros.find(n =&gt; n &gt; 10)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>forEach()</code></td>
+                            <td>Ejecuta una función por cada elemento.</td>
+                            <td><code>nombres.forEach(...)</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>Arreglos de objetos</h3>
+                <p>Un arreglo también puede almacenar objetos. Cada objeto agrupa propiedades relacionadas.</p>
+                <pre><code>let productos = [
+    { nombre: "Teclado", precio: 50000 },
+    { nombre: "Mouse", precio: 35000 }
+];
+
+console.log(productos[0].nombre); // Teclado
+console.log(productos[0].precio); // 50000</code></pre>
+            </section>
+
+            <section id="proyecto">
+                <h2>3. Crear la estructura del proyecto</h2>
+                <p>Vamos a crear una carpeta principal para guardar los cuatro ejercicios. Todos los archivos HTML
+                    estarán en la carpeta principal. Solo habrá una carpeta js para guardar los cuatro archivos
+                    JavaScript.</p>
+                <h3>Estructura final</h3>
+                <pre><code>taller-arrays/
+│
+├── index.html
+├── ejercicio1.html
+├── ejercicio2.html
+├── ejercicio3.html
+├── ejercicio4.html
+│
+└── js/
+    ├── ejercicio1.js
+    ├── ejercicio2.js
+    ├── ejercicio3.js
+    └── ejercicio4.js</code></pre>
+                <h3>Crear carpetas desde Visual Studio Code</h3>
+                <div class="step"><span class="num">1</span>
+                    <div>Abre Visual Studio Code y selecciona <strong>Archivo → Abrir carpeta</strong>. Crea o
+                        selecciona la carpeta <code class="inline">taller-arrays</code>.</div>
+                </div>
+                <div class="step"><span class="num">2</span>
+                    <div>En la raíz del proyecto crea cinco archivos HTML: <code class="inline">index.html</code>, <code
+                            class="inline">ejercicio1.html</code>, <code class="inline">ejercicio2.html</code>, <code
+                            class="inline">ejercicio3.html</code> y <code class="inline">ejercicio4.html</code>.</div>
+                </div>
+                <div class="step"><span class="num">3</span>
+                    <div>Crea una única carpeta llamada <code class="inline">js</code>.</div>
+                </div>
+                <div class="step"><span class="num">4</span>
+                    <div>Dentro de <code class="inline">js</code>, crea <code class="inline">ejercicio1.js</code>, <code
+                            class="inline">ejercicio2.js</code>, <code class="inline">ejercicio3.js</code> y <code
+                            class="inline">ejercicio4.js</code>.</div>
+                </div>
+            </section>
+            <section>
+
+                <h3>Contenido de index.html: menú principal</h3>
+                <p>El archivo <code class="inline">index.html</code> será la página de inicio y tendrá enlaces a los
+                    cuatro ejercicios.</p>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Taller de Arrays&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Taller práctico de Arrays&lt;/h1&gt;
+    &lt;p&gt;Selecciona el ejercicio que deseas desarrollar:&lt;/p&gt;
+
+    &lt;ol&gt;
+        &lt;li&gt;&lt;a href="ejercicio1.html"&gt;Ejercicio 1: Registro de nombres&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="ejercicio2.html"&gt;Ejercicio 2: Lista de números&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="ejercicio3.html"&gt;Ejercicio 3: Gestión de productos&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="ejercicio4.html"&gt;Ejercicio 4: Buscador de estudiantes&lt;/a&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <div class="note">Cada ejercicio debe incluir también un enlace para regresar al menú principal: <code
+                        class="inline">&lt;a href="index.html"&gt;Volver al menú&lt;/a&gt;</code>.</div>
+            </section>
+
+
+            <section id="ej1" class="exercise">
+                <h2>4. Ejercicio 1: Registro de nombres</h2>
+                <span class="tag">Array de textos</span><span class="tag">push()</span><span class="tag">for</span>
+                <h3>Enunciado</h3>
+                <p>Desarrolla una aplicación web que permita registrar nombres de personas. Cada nombre ingresado debe
+                    almacenarse en un arreglo y mostrarse en una lista dentro de la página.</p>
+                <h3>Requerimientos</h3>
+                <ol>
+                    <li>Crear un campo de texto para ingresar un nombre.</li>
+                    <li>Crear un botón para agregar el nombre.</li>
+                    <li>Guardar cada nombre en un arreglo utilizando <code>push()</code>.</li>
+                    <li>Mostrar todos los nombres en una lista HTML.</li>
+                    <li>Evitar el registro de campos vacíos.</li>
+                    <li>Mostrar la cantidad de nombres registrados utilizando <code>length</code>.</li>
+                </ol>
+                <h3>Archivo ejercicio1.html</h3>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Registro de nombres&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Registro de nombres&lt;/h1&gt;
+
+    &lt;input type="text" id="nombre" placeholder="Ingrese un nombre"&gt;
+    &lt;button id="btnAgregar"&gt;Agregar&lt;/button&gt;
+
+    &lt;h2&gt;Personas registradas&lt;/h2&gt;
+    &lt;ul id="lista"&gt;&lt;/ul&gt;
+    &lt;p id="cantidad"&gt;&lt;/p&gt;
+
+    &lt;script src="js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <h3>Archivo js/ejercicio1.js </h3>
+                <pre><code>let listaNombres = []; // Crear un arreglo vacío
+
+let inputNombre = document.getElementById("nombre");
+// Sin .value para poder modificar después el input.
+let btnAgregar = document.getElementById("btnAgregar");
+let lista = document.getElementById("lista");
+let cantidad = document.getElementById("cantidad");
+
+// Evento del botón.
+btnAgregar.addEventListener("click", function() {
+    let nombre = inputNombre.value.trim();
+
+    if (nombre === "") {
+        alert("Ingrese un nombre");
+    } else {
+        listaNombres.push(nombre);
+        mostrarNombres();
+
+        inputNombre.value = "";
+        inputNombre.focus();
+    }
+});
+
+// Función para mostrar los nombres.
+function mostrarNombres() {
+    lista.innerHTML = "";
+
+    for (let i = 0; i < listaNombres.length; i++) {
+        lista.innerHTML += `&lt;li&gt;${listaNombres[i]}&lt;/li&gt;`;
+    }
+
+    cantidad.textContent = `Total registrados: ${listaNombres.length}`;
+}</code></pre>
+                <div class="note success"><strong>Prueba:</strong> registra al menos cinco nombres. Comprueba que la
+                    lista se actualice y que la cantidad coincida con los nombres agregados.</div>
+            </section>
+
+            <section id="ej2" class="exercise">
+                <h2>5. Ejercicio 2: Lista de números</h2>
+                <span class="tag">Array numérico</span><span class="tag">parseFloat()</span><span
+                    class="tag">acumuladores</span>
+                <h3>Enunciado</h3>
+                <p>Desarrolla una aplicación que permita ingresar números y almacenarlos en un arreglo. La aplicación
+                    debe mostrar los números y calcular diferentes resultados a partir de ellos.</p>
+                <h3>Requerimientos</h3>
+                <ol>
+                    <li>Crear un campo numérico y un botón para agregar números.</li>
+                    <li>Guardar cada número en un arreglo.</li>
+                    <li>Mostrar los números registrados.</li>
+                    <li>Calcular la suma y el promedio.</li>
+                    <li>Identificar el número mayor y el menor.</li>
+                    <li>Validar que se ingrese un valor antes de agregarlo.</li>
+                </ol>
+                <h3>Archivo ejercicio2.html</h3>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Lista de números&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Operaciones con arrays&lt;/h1&gt;
+
+    &lt;input type="number" id="numero" placeholder="Ingrese un número" step="any"&gt;
+    &lt;button id="btnAgregar"&gt;Agregar número&lt;/button&gt;
+
+    &lt;h2&gt;Números registrados&lt;/h2&gt;
+    &lt;ul id="lista"&gt;&lt;/ul&gt;
+
+    &lt;h2&gt;Resultados&lt;/h2&gt;
+    &lt;p id="suma"&gt;&lt;/p&gt;
+    &lt;p id="promedio"&gt;&lt;/p&gt;
+    &lt;p id="mayor"&gt;&lt;/p&gt;
+    &lt;p id="menor"&gt;&lt;/p&gt;
+
+    &lt;script src="js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <h3>Archivo js/ejercicio2.js</h3>
+                <pre><code>// Arreglo donde se guardan los números ingresados.
+let listaNumeros = [];
+
+// Referencias a los elementos del formulario y los resultados.
+let numero = document.getElementById("numero");
+let btnAgregar = document.getElementById("btnAgregar");
+let lista = document.getElementById("lista");
+let suma = document.getElementById("suma");
+let promedio = document.getElementById("promedio");
+let mayor = document.getElementById("mayor");
+let menor = document.getElementById("menor");
+
+// Agrega el número ingresado cuando se hace clic en el botón.
+btnAgregar.addEventListener("click", function() {
+    if (numero.value.trim() === "") {
+        alert("Ingrese un número");
+    } else {
+        let valor = parseFloat(numero.value);
+
+        listaNumeros.push(valor);
+        numero.value = "";
+        mostrarResultados();
+    }
+});
+
+function mostrarResultados() {
+    lista.innerHTML = "";
+
+    let total = 0;
+    let numMayor = listaNumeros[0];
+    let numMenor = listaNumeros[0];
+
+    for (let i = 0; i < listaNumeros.length; i++) {
+        lista.innerHTML += `&lt;li&gt;${listaNumeros[i]}&lt;/li&gt;`;
+        total += listaNumeros[i];
+
+        if (listaNumeros[i] > numMayor) {
+            numMayor = listaNumeros[i];
+        }
+
+        if (listaNumeros[i] < numMenor) {
+            numMenor = listaNumeros[i];
+        }
+    }
+
+    let media = total / listaNumeros.length;
+
+    suma.textContent = `Suma: ${total}`;
+    promedio.textContent = `Promedio: ${media.toFixed(2)}`;
+    mayor.textContent = `Número mayor: ${numMayor}`;
+    menor.textContent = `Número menor: ${numMenor}`;
+}</code></pre>
+                <div class="note warning"><strong>Ten en cuenta:</strong> inicializa el mayor y el menor con el primer
+                    elemento del arreglo. Además, no calcules el promedio si el arreglo está vacío.</div>
+                <div class="note success"><strong>Prueba:</strong> ingresa 10, 5, 20 y 15. Verifica que la suma sea 50,
+                    el promedio 12.5, el mayor 20 y el menor 5.</div>
+            </section>
+
+            <section id="ej3" class="exercise">
+                <h2>6. Ejercicio 3: Gestión de productos</h2>
+                <span class="tag">Array de objetos</span><span class="tag">splice()</span><span class="tag">tablas
+                    HTML</span>
+                <h3>Enunciado</h3>
+                <p>Construye un pequeño sistema de inventario. Cada producto debe tener nombre, precio unitario y
+                    cantidad. Guarda los datos como objetos dentro de un arreglo y muéstralos en una tabla.</p>
+                <h3>Requerimientos</h3>
+                <ol>
+                    <li>Crear campos para el nombre, el precio unitario y la cantidad.</li>
+                    <li>Validar que el nombre no esté vacío, eliminando espacios al inicio y al final.</li>
+                    <li>Validar que el precio sea un número finito mayor o igual a cero.</li>
+                    <li>Validar que la cantidad sea un número entero mayor que cero.</li>
+                    <li>Guardar cada producto como un objeto con las propiedades <code>nombre</code>,
+                        <code>precio</code> y <code>cantidad</code>.</li>
+                    <li>Mostrar los productos en una tabla con el subtotal de cada producto (precio × cantidad).</li>
+                    <li>Calcular el valor total del inventario y mostrar el producto con el precio unitario más alto.
+                    </li>
+                    <li>Agregar un botón para eliminar cada producto utilizando <code>splice()</code>.</li>
+                </ol>
+                <div class="note warning"><strong>Validaciones:</strong> no agregues el producto si algún campo está
+                    vacío, el precio no es válido o la cantidad no es un entero positivo. Después de agregarlo
+                    correctamente, limpia los campos.</div>
+                <h3>Archivo ejercicio3.html</h3>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Gestión de productos&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Inventario de productos&lt;/h1&gt;
+
+    &lt;label for="producto"&gt;Nombre del producto:&lt;/label&gt;
+    &lt;input type="text" id="producto" required&gt;
+
+    &lt;label for="precio"&gt;Precio unitario:&lt;/label&gt;
+    &lt;input type="number" id="precio" min="0" step="any" required&gt;
+
+    &lt;label for="cantidad"&gt;Cantidad:&lt;/label&gt;
+    &lt;input type="number" id="cantidad" min="1" step="1" required&gt;
+
+    &lt;button id="btnAgregar"&gt;Agregar producto&lt;/button&gt;
+
+    &lt;h2&gt;Productos registrados&lt;/h2&gt;
+    &lt;table border="1"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Producto&lt;/th&gt;
+                &lt;th&gt;Precio unitario&lt;/th&gt;
+                &lt;th&gt;Cantidad&lt;/th&gt;
+                &lt;th&gt;Subtotal&lt;/th&gt;
+                &lt;th&gt;Acción&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody id="tabla"&gt;&lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;h2&gt;Resultados&lt;/h2&gt;
+    &lt;p id="total"&gt;&lt;/p&gt;
+    &lt;p id="productoMayor"&gt;&lt;/p&gt;
+
+    &lt;script src="js/ejercicio3.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <h3>Archivo js/ejercicio3.js </h3>
+                <pre><code>// Cada producto debe tener nombre, precio y cantidad.
+let productos = [];
+
+// Valida que el nombre no esté vacío.
+// Valida que el precio sea finito y mayor o igual a cero.
+// Valida que la cantidad sea un entero mayor que cero.
+// Agrega el producto al arreglo y actualiza la tabla y los resultados.
+// Calcula cada subtotal (precio * cantidad) y el valor total del inventario.
+// Permite eliminar productos con splice() y vuelve a actualizar la vista.</code></pre>
+                <div class="note warning"><strong>Importante:</strong> cuando elimines un producto, actualiza nuevamente
+                    la tabla y los cálculos. Si no quedan productos, muestra un mensaje que indique que el inventario
+                    está vacío.</div>
+                <div class="note success"><strong>Prueba:</strong> registra un producto con precio 10 y cantidad 3 y
+                    otro con precio 5 y cantidad 2. Verifica los subtotales (30 y 10) y el valor total (40). Prueba
+                    también dejar campos vacíos, ingresar un precio negativo y usar una cantidad decimal o igual a cero;
+                    ninguno debe agregarse.</div>
+            </section>
+
+            <section id="ej4" class="exercise">
+                <h2>7. Ejercicio 4: Buscador de estudiantes</h2>
+                <span class="tag">find()</span><span class="tag">includes()</span><span class="tag">toLowerCase()</span>
+                <h3>Enunciado</h3>
+                <p>Desarrolla una aplicación que permita consultar si un estudiante se encuentra registrado en un
+                    arreglo. La página debe mostrar todos los estudiantes y permitir buscar por nombre sin importar si
+                    se escriben mayúsculas o minúsculas.</p>
+                <h3>Requerimientos</h3>
+                <ol>
+                    <li>Crear un arreglo con mínimo ocho nombres de estudiantes.</li>
+                    <li>Mostrar todos los nombres en una lista HTML.</li>
+                    <li>Crear un campo para escribir el nombre que se desea buscar.</li>
+                    <li>Crear un botón para realizar la búsqueda.</li>
+                    <li>Utilizar <code>find()</code> para localizar al estudiante.</li>
+                    <li>Mostrar un mensaje si está registrado o si no se encuentra.</li>
+                    <li>Validar que el campo de búsqueda no esté vacío.</li>
+                </ol>
+
+            </section>
+
+
+            <footer>
+                <p><strong>Guía de aprendizaje: Arrays en JavaScript</strong></p>
+                <p>Practica, prueba, identifica errores y explica cómo funciona tu código.</p>
+            </footer>
+        </main>
+    </div>
+    <script>
+        document.addEventListener("copy", function(event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener("cut", function(event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener("paste", function(event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener("keydown", function(event) {
+            let key = event.key.toLowerCase();
+            let modifier = event.ctrlKey || event.metaKey;
+
+            if (
+                (modifier && ["c", "x", "v"].includes(key)) ||
+                (event.shiftKey && key === "insert") ||
+                (event.ctrlKey && key === "insert")
+            ) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>
