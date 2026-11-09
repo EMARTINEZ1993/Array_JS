@@ -3,8 +3,8 @@
 let listaNumeros = [];
 
 // Referencias a los elementos del formulario y de los resultados.
+let formulario = document.getElementById("formulario");
 let numero = document.getElementById("numero");
-let btnAgregar = document.getElementById("btnAgregar");
 
 let lista = document.getElementById("lista");
 let suma = document.getElementById("suma");
@@ -12,8 +12,9 @@ let promedio = document.getElementById("promedio");
 let mayor = document.getElementById("mayor");
 let menor = document.getElementById("menor");
 
-// Agrega el número ingresado cuando se hace clic en el botón.
-btnAgregar.addEventListener("click", function() {
+// Agrega el número ingresado cuando se envía el formulario.
+formulario.addEventListener("submit", function(event) {
+    event.preventDefault();
 
     // Verifica que el campo no esté vacío antes de procesarlo.
     if (numero.value.trim() === "") {

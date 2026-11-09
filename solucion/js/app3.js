@@ -3,13 +3,14 @@ let productos = [];
 let producto = document.getElementById("producto");
 let precio = document.getElementById("precio");
 let cantidad = document.getElementById("cantidad");
-let btnAgregar = document.getElementById("btnAgregar");
+let formulario = document.getElementById("formulario");
 
 let tabla = document.getElementById("tabla");
 let total = document.getElementById("total");
 let productoMayor = document.getElementById("productoMayor");
 
-btnAgregar.addEventListener("click", function() {
+formulario.addEventListener("submit", function(event) {
+    event.preventDefault();
     let nombre = producto.value.trim();
     let valor = Number(precio.value);
     let unidades = Number(cantidad.value);
@@ -75,6 +76,7 @@ function mostrarProductos() {
         let celdaAccion = document.createElement("td");
         let botonEliminar = document.createElement("button");
 
+        botonEliminar.type = "button";
         celdaNombre.textContent = elemento.nombre;
         celdaPrecio.textContent = `$${elemento.precio.toFixed(2)}`;
         celdaCantidad.textContent = elemento.cantidad;

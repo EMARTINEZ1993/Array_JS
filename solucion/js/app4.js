@@ -11,7 +11,7 @@ let estudiantes = [
 ];
 
 let buscar = document.getElementById("buscar");
-let btnBuscar = document.getElementById("btnBuscar");
+let formulario = document.getElementById("formulario");
 
 let resultado = document.getElementById("resultado");
 let lista = document.getElementById("lista");
@@ -34,7 +34,8 @@ function mostrarEstudiantes() {
 }
 
 // Buscar estudiante
-btnBuscar.addEventListener("click", function() {
+formulario.addEventListener("submit", function(event) {
+    event.preventDefault();
 
     let nombre = buscar.value.trim().toLowerCase();
 

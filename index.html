@@ -213,6 +213,10 @@ console.log(productos[0].precio); // 50000</code></pre>
                             class="inline">ejercicio2.js</code>, <code class="inline">ejercicio3.js</code> y <code
                             class="inline">ejercicio4.js</code>.</div>
                 </div>
+                <div class="note"><strong>Importante:</strong> coloca cada campo de entrada y su botón de envío dentro
+                    de un elemento <code class="inline">&lt;form&gt;</code>. En JavaScript, escucha el evento
+                    <code class="inline">submit</code> del formulario y usa
+                    <code class="inline">event.preventDefault()</code> para procesar los datos sin recargar la página.</div>
             </section>
             <section>
 
@@ -267,8 +271,10 @@ console.log(productos[0].precio); // 50000</code></pre>
 &lt;body&gt;
     &lt;h1&gt;Registro de nombres&lt;/h1&gt;
 
-    &lt;input type="text" id="nombre" placeholder="Ingrese un nombre"&gt;
-    &lt;button id="btnAgregar"&gt;Agregar&lt;/button&gt;
+    &lt;form id="formulario"&gt;
+        &lt;input type="text" id="nombre" placeholder="Ingrese un nombre"&gt;
+        &lt;button type="submit" id="btnAgregar"&gt;Agregar&lt;/button&gt;
+    &lt;/form&gt;
 
     &lt;h2&gt;Personas registradas&lt;/h2&gt;
     &lt;ul id="lista"&gt;&lt;/ul&gt;
@@ -280,14 +286,15 @@ console.log(productos[0].precio); // 50000</code></pre>
                 <h3>Archivo js/ejercicio1.js </h3>
                 <pre><code>let listaNombres = []; // Crear un arreglo vacío
 
+let formulario = document.getElementById("formulario");
 let inputNombre = document.getElementById("nombre");
 // Sin .value para poder modificar después el input.
-let btnAgregar = document.getElementById("btnAgregar");
 let lista = document.getElementById("lista");
 let cantidad = document.getElementById("cantidad");
 
-// Evento del botón.
-btnAgregar.addEventListener("click", function() {
+// Evento del formulario.
+formulario.addEventListener("submit", function(event) {
+    event.preventDefault();
     let nombre = inputNombre.value.trim();
 
     if (nombre === "") {
@@ -341,8 +348,10 @@ function mostrarNombres() {
 &lt;body&gt;
     &lt;h1&gt;Operaciones con arrays&lt;/h1&gt;
 
-    &lt;input type="number" id="numero" placeholder="Ingrese un número" step="any"&gt;
-    &lt;button id="btnAgregar"&gt;Agregar número&lt;/button&gt;
+    &lt;form id="formulario"&gt;
+        &lt;input type="number" id="numero" placeholder="Ingrese un número" step="any"&gt;
+        &lt;button type="submit" id="btnAgregar"&gt;Agregar número&lt;/button&gt;
+    &lt;/form&gt;
 
     &lt;h2&gt;Números registrados&lt;/h2&gt;
     &lt;ul id="lista"&gt;&lt;/ul&gt;
@@ -361,16 +370,17 @@ function mostrarNombres() {
 let listaNumeros = [];
 
 // Referencias a los elementos del formulario y los resultados.
+let formulario = document.getElementById("formulario");
 let numero = document.getElementById("numero");
-let btnAgregar = document.getElementById("btnAgregar");
 let lista = document.getElementById("lista");
 let suma = document.getElementById("suma");
 let promedio = document.getElementById("promedio");
 let mayor = document.getElementById("mayor");
 let menor = document.getElementById("menor");
 
-// Agrega el número ingresado cuando se hace clic en el botón.
-btnAgregar.addEventListener("click", function() {
+// Agrega el número ingresado cuando se envía el formulario.
+formulario.addEventListener("submit", function(event) {
+    event.preventDefault();
     if (numero.value.trim() === "") {
         alert("Ingrese un número");
     } else {
@@ -448,16 +458,18 @@ function mostrarResultados() {
 &lt;body&gt;
     &lt;h1&gt;Inventario de productos&lt;/h1&gt;
 
-    &lt;label for="producto"&gt;Nombre del producto:&lt;/label&gt;
-    &lt;input type="text" id="producto" required&gt;
+    &lt;form id="formulario"&gt;
+        &lt;label for="producto"&gt;Nombre del producto:&lt;/label&gt;
+        &lt;input type="text" id="producto" required&gt;
 
-    &lt;label for="precio"&gt;Precio unitario:&lt;/label&gt;
-    &lt;input type="number" id="precio" min="0" step="any" required&gt;
+        &lt;label for="precio"&gt;Precio unitario:&lt;/label&gt;
+        &lt;input type="number" id="precio" min="0" step="any" required&gt;
 
-    &lt;label for="cantidad"&gt;Cantidad:&lt;/label&gt;
-    &lt;input type="number" id="cantidad" min="1" step="1" required&gt;
+        &lt;label for="cantidad"&gt;Cantidad:&lt;/label&gt;
+        &lt;input type="number" id="cantidad" min="1" step="1" required&gt;
 
-    &lt;button id="btnAgregar"&gt;Agregar producto&lt;/button&gt;
+        &lt;button type="submit" id="btnAgregar"&gt;Agregar producto&lt;/button&gt;
+    &lt;/form&gt;
 
     &lt;h2&gt;Productos registrados&lt;/h2&gt;
     &lt;table border="1"&gt;

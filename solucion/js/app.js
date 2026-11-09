@@ -5,14 +5,15 @@ let listaNombres = [];
 let inputNombre = document.getElementById("nombre"); 
 //sin .value para poder modificar despues el input
 
-let btnAgregar = document.getElementById("btnAgregar");
+let formulario = document.getElementById("formulario");
 let lista = document.getElementById("lista");
 let cantidad = document.getElementById("cantidad");
 
 
 
-// Evento del botón
-btnAgregar.addEventListener("click", function() {
+// Evento del formulario
+formulario.addEventListener("submit", function(event) {
+    event.preventDefault();
     let nombre = inputNombre.value.trim(); // <-- 2. Leemos su valor
 
     if (nombre === "") {
