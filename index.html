@@ -436,14 +436,13 @@ function mostrarResultados() {
                 <ol>
                     <li>Crear campos para el nombre, el precio unitario y la cantidad.</li>
                     <li>Validar que el nombre no esté vacío, eliminando espacios al inicio y al final.</li>
-                    <li>Validar que el precio sea un número finito mayor o igual a cero.</li>
-                    <li>Validar que la cantidad sea un número entero mayor que cero.</li>
+                    <li>Validar que el precio y cantidad sea un número mayor a cero .</li>
                     <li>Guardar cada producto como un objeto con las propiedades <code>nombre</code>,
                         <code>precio</code> y <code>cantidad</code>.</li>
                     <li>Mostrar los productos en una tabla con el subtotal de cada producto (precio × cantidad).</li>
-                    <li>Calcular el valor total del inventario y mostrar el producto con el precio unitario más alto.
+                    <li>Calcular el valor total.
                     </li>
-                    <li>Agregar un botón para eliminar cada producto utilizando <code>splice()</code>.</li>
+
                 </ol>
                 <div class="note warning"><strong>Validaciones:</strong> no agregues el producto si algún campo está
                     vacío, el precio no es válido o la cantidad no es un entero positivo. Después de agregarlo
@@ -479,7 +478,7 @@ function mostrarResultados() {
                 &lt;th&gt;Precio unitario&lt;/th&gt;
                 &lt;th&gt;Cantidad&lt;/th&gt;
                 &lt;th&gt;Subtotal&lt;/th&gt;
-                &lt;th&gt;Acción&lt;/th&gt;
+
             &lt;/tr&gt;
         &lt;/thead&gt;
         &lt;tbody id="tabla"&gt;&lt;/tbody&gt;
@@ -487,7 +486,7 @@ function mostrarResultados() {
 
     &lt;h2&gt;Resultados&lt;/h2&gt;
     &lt;p id="total"&gt;&lt;/p&gt;
-    &lt;p id="productoMayor"&gt;&lt;/p&gt;
+
 
     &lt;script src="js/ejercicio3.js"&gt;&lt;/script&gt;
 &lt;/body&gt;
@@ -497,18 +496,12 @@ function mostrarResultados() {
 let productos = [];
 
 // Valida que el nombre no esté vacío.
-// Valida que el precio sea finito y mayor o igual a cero.
-// Valida que la cantidad sea un entero mayor que cero.
+// Valida que el precio no sea nulo y mayor o igual a cero.
+// Valida que la cantidad sea no sea nulo mayor que cero.
 // Agrega el producto al arreglo y actualiza la tabla y los resultados.
 // Calcula cada subtotal (precio * cantidad) y el valor total del inventario.
-// Permite eliminar productos con splice() y vuelve a actualizar la vista.</code></pre>
-                <div class="note warning"><strong>Importante:</strong> cuando elimines un producto, actualiza nuevamente
-                    la tabla y los cálculos. Si no quedan productos, muestra un mensaje que indique que el inventario
-                    está vacío.</div>
-                <div class="note success"><strong>Prueba:</strong> registra un producto con precio 10 y cantidad 3 y
-                    otro con precio 5 y cantidad 2. Verifica los subtotales (30 y 10) y el valor total (40). Prueba
-                    también dejar campos vacíos, ingresar un precio negativo y usar una cantidad decimal o igual a cero;
-                    ninguno debe agregarse.</div>
+</code></pre>
+
             </section>
 
             <section id="ej4" class="exercise">
