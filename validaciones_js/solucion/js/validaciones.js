@@ -72,6 +72,8 @@ function validarCorreo() {
     // .test() comprueba si el correo cumple el patrón.
     // ! niega el resultado: si NO cumple, muestra el error.
 
+
+    
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
         errorCorreo.textContent = "Ingrese un correo electrónico válido.";
         return false;
