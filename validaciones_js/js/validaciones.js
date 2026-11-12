@@ -1,358 +1,232 @@
-
-// ==================================================
-// BLOQUE 1. VALIDAR NOMBRE
-// ==================================================
-
-// 1. Capturar el elemento HTML
-const nombre = document.getElementById("nombre");
-
-// 2. Crear la función de validación
+ // BLOQUE 1. VALIDAR NOMBRE
 function validarNombre() {
+    const nombre = document.getElementById("nombre").value.trim();
+    const errorNombre = document.getElementById("errorNombre");
 
-    let valor = nombre.value.trim();
-
-    if (valor.length < 3) {
-
-        document.getElementById("errorNombre").textContent =
-            "El nombre debe tener mínimo 3 caracteres.";
-
+    if (nombre.length < 3) {
+        errorNombre.textContent = "El nombre debe tener mínimo 3 caracteres.";
         return false;
-
     } else {
-
-        document.getElementById("errorNombre").textContent =
-            "Nombre válido.";
-
+        errorNombre.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación en tiempo real
-nombre.addEventListener("input", validarNombre);
+document.getElementById("nombre").addEventListener("input", validarNombre);
 
-
-// ==================================================
 // BLOQUE 2. VALIDAR APELLIDOS
-// ==================================================
 
-// 1. Capturar el elemento HTML
-const apellidos = document.getElementById("apellidos");
-
-// 2. Crear la función de validación
 function validarApellidos() {
+    const apellidos = document.getElementById("apellidos").value.trim();
+    const errorApellidos = document.getElementById("errorApellidos");
 
-    let valor = apellidos.value.trim();
-
-    if (valor.length < 3) {
-
-        document.getElementById("errorApellidos").textContent =
-            "Los apellidos deben tener mínimo 3 caracteres.";
-
+    if (apellidos.length < 3) {
+        errorApellidos.textContent = "Los apellidos deben tener mínimo 3 caracteres.";
         return false;
-
     } else {
-
-        document.getElementById("errorApellidos").textContent =
-            "Apellidos válidos.";
-
+        errorApellidos.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación en tiempo real
-apellidos.addEventListener("input", validarApellidos);
+document.getElementById("apellidos").addEventListener("input", validarApellidos);
 
-
-// ==================================================
 // BLOQUE 3. VALIDAR DOCUMENTO
-// ==================================================
 
-// 1. Capturar el elemento HTML
-const documento = document.getElementById("documento");
-
-// 2. Crear la función de validación
 function validarDocumento() {
+    const documento = document.getElementById("documento").value.trim();
+    const errorDocumento = document.getElementById("errorDocumento");
 
-    let valor = documento.value.trim();
+    // ! significa NOT (negación): indica que el patrón NO se debe cumplir.
+    // / / delimitan la expresión regular.
+    // ^ indica el inicio del texto.
+    // \d representa un dígito del 0 al 9.
+    // {6,10} indica que debe tener entre 6 y 10 dígitos.
+    // $ indica el final del texto.
+    // .test() comprueba si el documento cumple el patrón.
 
-    if (!/^\d{6,10}$/.test(valor)) {
-
-        document.getElementById("errorDocumento").textContent =
-            "Ingrese un documento entre 6 y 10 números.";
-
+if (!/^\d{6,10}$/.test(documento)) {
+        errorDocumento.textContent = "Ingrese un documento entre 6 y 10 números.";
         return false;
-
     } else {
-
-        document.getElementById("errorDocumento").textContent =
-            "Documento válido.";
-
+        errorDocumento.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación en tiempo real
-documento.addEventListener("input", validarDocumento);
+document.getElementById("documento").addEventListener("input", validarDocumento);
 
+// BLOQUE 4. VALIDAR CORREO
 
-// ==================================================
-// BLOQUE 4. VALIDAR CORREO ELECTRÓNICO
-// ==================================================
-
-// 1. Capturar el elemento HTML
-const correo = document.getElementById("correo");
-
-// 2. Crear la función de validación
 function validarCorreo() {
+    const correo = document.getElementById("correo").value.trim();
+    const errorCorreo = document.getElementById("errorCorreo");
 
-    let valor = correo.value.trim();
+    // ^ indica el inicio del texto.
+    // [^\s@]+ permite uno o más caracteres que no sean espacios ni arrobas.
+    // @ exige que exista una arroba.
+    // [^\s@]+ exige caracteres después de la arroba, sin espacios ni otra arroba.
+    // \. exige un punto después del dominio.
+    // [^\s@]+ exige caracteres después del punto.
+    // $ indica el final del texto.
+    // .test() comprueba si el correo cumple el patrón.
+    // ! niega el resultado: si NO cumple, muestra el error.
 
-    let expresion = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!expresion.test(valor)) {
-
-        document.getElementById("errorCorreo").textContent =
-            "Ingrese un correo electrónico válido.";
-
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+        errorCorreo.textContent = "Ingrese un correo electrónico válido.";
         return false;
-
     } else {
-
-        document.getElementById("errorCorreo").textContent =
-            "Correo válido.";
-
+        errorCorreo.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación en tiempo real
-correo.addEventListener("input", validarCorreo);
+document.getElementById("correo").addEventListener("input", validarCorreo);
 
 
-// ==================================================
 // BLOQUE 5. VALIDAR TELÉFONO
-// ==================================================
 
-// 1. Capturar el elemento HTML
-const telefono = document.getElementById("telefono");
-
-// 2. Crear la función de validación
 function validarTelefono() {
+    const telefono = document.getElementById("telefono").value.trim();
+    const errorTelefono = document.getElementById("errorTelefono");
 
-    let valor = telefono.value.trim();
-
-    if (!/^\d{10}$/.test(valor)) {
-
-        document.getElementById("errorTelefono").textContent =
-            "El teléfono debe tener exactamente 10 números.";
-
+    if (!/^\d{10}$/.test(telefono)) {
+        errorTelefono.textContent = "El teléfono debe tener exactamente 10 números.";
         return false;
-
     } else {
-
-        document.getElementById("errorTelefono").textContent =
-            "Teléfono válido.";
-
+        errorTelefono.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación en tiempo real
-telefono.addEventListener("input", validarTelefono);
+document.getElementById("telefono").addEventListener("input", validarTelefono);
 
 
 // ==================================================
 // BLOQUE 6. VALIDAR EDAD
 // ==================================================
 
-// 1. Capturar el elemento HTML
-const edad = document.getElementById("edad");
-
-// 2. Crear la función de validación
 function validarEdad() {
+    const edad = parseInt(document.getElementById("edad").value.trim());
+    const errorEdad = document.getElementById("errorEdad");
 
-    let valor = Number(edad.value);
-
-    if (
-        edad.value.trim() === "" ||
-        !Number.isInteger(valor) ||
-        valor < 18 ||
-        valor > 60
-    ) {
-
-        document.getElementById("errorEdad").textContent =
-            "La edad debe estar entre 18 y 60 años.";
-
+    if (isNaN(edad) ||edad < 18 || edad > 60) {
+        errorEdad.textContent = "La edad debe estar entre 18 y 60 años.";
         return false;
-
     } else {
-
-        document.getElementById("errorEdad").textContent =
-            "Edad válida.";
-
+        errorEdad.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación en tiempo real
-edad.addEventListener("input", validarEdad);
+document.getElementById("edad").addEventListener("input", validarEdad);
 
 
 // ==================================================
 // BLOQUE 7. VALIDAR CONTRASEÑA
 // ==================================================
 
-// 1. Capturar el elemento HTML
-const contrasena = document.getElementById("contrasena");
-
-// 2. Crear la función de validación
 function validarContrasena() {
+    const contrasena = document.getElementById("contrasena").value;
+    const errorContrasena = document.getElementById("errorContrasena");
 
-    let valor = contrasena.value;
-
-    let expresion = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-
-    if (!expresion.test(valor)) {
-
-        document.getElementById("errorContrasena").textContent =
-            "Mínimo 8 caracteres, una mayúscula y un número.";
-
+    // Debe tener al menos 8 caracteres, incluir una mayúscula y un número.
+    if (!/^(?=.*[A-Z])(?=.*\d).{8,}$/.test(contrasena)) {
+        errorContrasena.textContent = "Mínimo 8 caracteres, una mayúscula y un número.";
         return false;
-
     } else {
-
-        document.getElementById("errorContrasena").textContent =
-            "Contraseña válida.";
-
+        errorContrasena.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación en tiempo real
-contrasena.addEventListener("input", validarContrasena);
+document.getElementById("contrasena").addEventListener("input", validarContrasena);
 
 
 // ==================================================
 // BLOQUE 8. CONFIRMAR CONTRASEÑA
 // ==================================================
 
-// 1. Capturar el elemento HTML
-const confirmar = document.getElementById("confirmar");
-
-// 2. Crear la función de validación
 function validarConfirmar() {
+    const contrasena = document.getElementById("contrasena").value;
+    const confirmar = document.getElementById("confirmar").value;
+    const errorConfirmar = document.getElementById("errorConfirmar");
 
-    let valor = confirmar.value;
-
-    if (valor === "" || valor !== contrasena.value) {
-
-        document.getElementById("errorConfirmar").textContent =
-            "Las contraseñas no coinciden.";
-
+    if (confirmar === "" || confirmar !== contrasena) {
+        errorConfirmar.textContent = "Las contraseñas no coinciden.";
         return false;
-
     } else {
-
-        document.getElementById("errorConfirmar").textContent =
-            "Las contraseñas coinciden.";
-
+        errorConfirmar.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación en tiempo real
-confirmar.addEventListener("input", validarConfirmar);
-
-
-// 4. Volver a comprobar la confirmación
-// cuando se modifica la contraseña original
-contrasena.addEventListener("input", validarConfirmar);
+document.getElementById("confirmar").addEventListener("input", validarConfirmar);
+document.getElementById("contrasena").addEventListener("input", validarConfirmar);
 
 
 // ==================================================
 // BLOQUE 9. VALIDAR PROGRAMA
 // ==================================================
 
-// 1. Capturar el elemento HTML
-const programa = document.getElementById("programa");
-
-// 2. Crear la función de validación
 function validarPrograma() {
+    const programa = document.getElementById("programa").value;
+    const errorPrograma = document.getElementById("errorPrograma");
 
-    let valor = programa.value;
-
-    if (valor === "") {
-
-        document.getElementById("errorPrograma").textContent =
-            "Seleccione un programa de formación.";
-
+    if (programa === "") {
+        errorPrograma.textContent = "Seleccione un programa de formación.";
         return false;
-
     } else {
-
-        document.getElementById("errorPrograma").textContent =
-            "Programa seleccionado.";
-
+        errorPrograma.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación cuando cambia la selección
-programa.addEventListener("change", validarPrograma);
+document.getElementById("programa").addEventListener("change", validarPrograma);
 
 
 // ==================================================
 // BLOQUE 10. VALIDAR TÉRMINOS Y CONDICIONES
 // ==================================================
 
-// 1. Capturar el elemento HTML
-const terminos = document.getElementById("terminos");
-
-// 2. Crear la función de validación
 function validarTerminos() {
+    const terminos = document.getElementById("terminos").checked;
+    const errorTerminos = document.getElementById("errorTerminos");
 
-    if (!terminos.checked) {
-
-        document.getElementById("errorTerminos").textContent =
-            "Debe aceptar los términos y condiciones.";
-
+    if (!terminos) {
+        errorTerminos.textContent = "Debe aceptar los términos y condiciones.";
         return false;
-
     } else {
-
-        document.getElementById("errorTerminos").textContent =
-            "Términos aceptados.";
-
+        errorTerminos.textContent = "";
         return true;
     }
 }
 
-// 3. Ejecutar la validación cuando cambia el checkbox
-terminos.addEventListener("change", validarTerminos);
+document.getElementById("terminos").addEventListener("change", validarTerminos);
 
 
 // ==================================================
 // BLOQUE 11. VALIDAR TODO EL FORMULARIO
 // ==================================================
 
-// 1. Capturar el botón y el formulario
 const formulario = document.getElementById("formulario");
 const btnRegistrar = document.getElementById("btnRegistrar");
+const mensajeFinal = document.getElementById("mensajeFinal");
 
-// 2. Crear la función de validación general
 function validarFormulario() {
 
-    let resultado =
-        validarNombre() &&
-        validarApellidos() &&
-        validarDocumento() &&
-        validarCorreo() &&
-        validarTelefono() &&
-        validarEdad() &&
-        validarContrasena() &&
-        validarConfirmar() &&
-        validarPrograma() &&
-        validarTerminos();
+    let resultado = true;
+
+    if (!validarNombre()) resultado = false;
+    if (!validarApellidos()) resultado = false;
+    if (!validarDocumento()) resultado = false;
+    if (!validarCorreo()) resultado = false;
+    if (!validarTelefono()) resultado = false;
+    if (!validarEdad()) resultado = false;
+    if (!validarContrasena()) resultado = false;
+    if (!validarConfirmar()) resultado = false;
+    if (!validarPrograma()) resultado = false;
+    if (!validarTerminos()) resultado = false;
 
     btnRegistrar.disabled = !resultado;
 
@@ -361,50 +235,39 @@ function validarFormulario() {
 
 
 // ==================================================
-// BLOQUE 12. ACTUALIZAR EL ESTADO DEL BOTÓN
+// BLOQUE 12. ENVIAR FORMULARIO
 // ==================================================
 
-// Comprobar todos los campos cada vez que cambia uno
-formulario.addEventListener("input", validarFormulario);
-
-formulario.addEventListener("change", validarFormulario);
-
-
-// ==================================================
-// BLOQUE 13. ENVIAR EL FORMULARIO
-// ==================================================
-
-formulario.addEventListener("submit", function(event) {
+function enviarFormulario(event) {
 
     event.preventDefault();
 
     if (validarFormulario()) {
 
-        document.getElementById("mensajeFinal").textContent =
-            "¡Estudiante registrado correctamente!";
+        mensajeFinal.textContent = "¡Estudiante registrado correctamente!";
+        mensajeFinal.style.color = "green";
 
-        document.getElementById("mensajeFinal").style.color = "green";
-
-        // Limpiar el formulario
+        // Limpiar formulario
         formulario.reset();
 
         // Limpiar estilos de los campos
-        document.querySelectorAll("input, select").forEach(function(campo) {
+        let campos = document.querySelectorAll("input, select");
 
-            campo.classList.remove("error", "exito");
-
-        });
+        for (let i = 0; i < campos.length; i++) {
+            campos[i].classList.remove("error", "exito");
+        }
 
         // Limpiar mensajes
-        document.querySelectorAll("small").forEach(function(elemento) {
+        let mensajes = document.querySelectorAll("small");
 
-            elemento.textContent = "";
-            elemento.className = "";
+        for (let i = 0; i < mensajes.length; i++) {
+            mensajes[i].textContent = "";
+            mensajes[i].className = "";
+        }
 
-        });
-
-        // Deshabilitar nuevamente el botón
+        // Deshabilitar botón nuevamente
         btnRegistrar.disabled = true;
     }
+}
 
-});
+formulario.addEventListener("submit", enviarFormulario);

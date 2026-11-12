@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guía paso a paso para construir un formulario con validaciones en JavaScript.">
+    <title>Guía: formulario con validaciones</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 32px 16px;
+            background: #eef2f7;
+            color: #1e293b;
+            font-family: Arial, sans-serif;
+            line-height: 1.65;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 36px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000015;
+        }
+
+        h1, h2 {
+            color: #1e3a8a;
+            line-height: 1.25;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-top: 36px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #dbe3ee;
+        }
+
+        a {
+            color: #1d4ed8;
+        }
+
+        nav {
+            padding: 16px 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        nav ul {
+            margin-bottom: 0;
+        }
+
+        pre {
+            overflow-x: auto;
+            padding: 16px;
+            background: #0f172a;
+            border-radius: 8px;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        :not(pre) > code {
+            padding: 2px 5px;
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f1f5f9;
+        }
+
+        .nota {
+            padding: 12px 16px;
+            border-left: 4px solid #2563eb;
+            background: #eff6ff;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            main {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Guía paso a paso: formulario con validaciones en JavaScript</h1>
+            <p>Aprende cómo está construido el formulario de registro de estudiantes, desde la estructura de carpetas hasta la validación y el envío.</p>
+        </header>
+
+
+
+        <section id="regex">
+            <h2>1. ¿Qué son las expresiones regulares?</h2>
+            <p>Una expresión regular (o <em>regex</em>) es un patrón que permite comprobar si un texto tiene una forma determinada. En JavaScript se comprueba con el método <code>.test()</code>:</p>
+            <pre><code>const cumple = /^\d{6,10}$/.test("123456");</code></pre>
+            <p>En este ejemplo, <code>cumple</code> será <code>true</code> porque el texto contiene entre 6 y 10 dígitos. Estos son algunos elementos que aparecen en los patrones del proyecto:</p>
+            <table>
+                <thead>
+                    <tr><th>Símbolo</th><th>Significado</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>/.../</code></td><td>Delimita el patrón en JavaScript.</td></tr>
+                    <tr><td><code>^</code></td><td>Indica el inicio del texto.</td></tr>
+                    <tr><td><code>$</code></td><td>Indica el final del texto.</td></tr>
+                    <tr><td><code>\d</code></td><td>Representa un dígito del 0 al 9.</td></tr>
+                    <tr><td><code>\s</code></td><td>Representa un espacio en blanco.</td></tr>
+                    <tr><td><code>.</code></td><td>Representa cualquier carácter, salvo un salto de línea.</td></tr>
+                    <tr><td><code>+</code></td><td>Indica una o más repeticiones.</td></tr>
+                    <tr><td><code>{6,10}</code></td><td>Indica entre 6 y 10 repeticiones.</td></tr>
+                    <tr><td><code>[A-Z]</code></td><td>Representa una letra mayúscula de la A a la Z.</td></tr>
+                    <tr><td><code>(?=...)</code></td><td>Comprueba una condición sin consumir caracteres.</td></tr>
+                    <tr><td><code>!</code></td><td>Niega un resultado: <code>!patron.test(texto)</code> significa que el texto no coincide.</td></tr>
+                </tbody>
+            </table>
+            <p>El proyecto usa patrones para documento (<code>/^\d{6,10}$/</code>), teléfono (<code>/^\d{10}$/</code>), correo y contraseña.</p>
+            <p class="nota">Estas expresiones son comprobaciones sencillas para el ejercicio. No sustituyen la validación del servidor ni cubren todas las reglas posibles de esos formatos.</p>
+        </section>
+
+        <section id="tiempo-real">
+            <h2>2. Validación en tiempo real</h2>
+            <p>La validación en tiempo real responde a los cambios del campo mientras la persona escribe. El evento <code>input</code> se dispara cuando cambia el valor de un campo de texto. Para una lista desplegable y una casilla de verificación, el proyecto usa el evento <code>change</code>.</p>
+            <pre><code>document.getElementById("nombre").addEventListener("input", validarNombre);</code></pre>
+            <p>Cada función validadora devuelve <code>true</code> si el valor es válido y <code>false</code> si no lo es. También escribe o limpia el mensaje de error del campo.</p>
+        </section>
+        <section id="otras-validaciones">
+            <h2>3. Agregar validaciones para los demás campos</h2>
+            <p>El archivo <code>js/validaciones.js</code> repite el mismo patrón: obtiene el valor, comprueba una regla, muestra o limpia el error y devuelve un booleano.</p>
+            <table>
+                <thead>
+                    <tr><th>Campo</th><th>Regla del proyecto</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Nombre y apellidos</td><td>Al menos 3 caracteres, ignorando espacios externos.</td></tr>
+                    <tr><td>Documento</td><td>Entre 6 y 10 dígitos: <code>/^\d{6,10}$/</code>.</td></tr>
+                    <tr><td>Correo</td><td>Forma sencilla <code>texto@dominio.extensión</code>, sin espacios.</td></tr>
+                    <tr><td>Teléfono</td><td>Exactamente 10 dígitos: <code>/^\d{10}$/</code>.</td></tr>
+                    <tr><td>Edad</td><td>Número entre 18 y 60, inclusive.</td></tr>
+                    <tr><td>Contraseña</td><td>Al menos 8 caracteres, una mayúscula y un dígito: <code>/^(?=.*[A-Z])(?=.*\d).{8,}$/</code>.</td></tr>
+                    <tr><td>Confirmación</td><td>No puede estar vacía y debe coincidir con la contraseña.</td></tr>
+                    <tr><td>Programa</td><td>Debe seleccionar una opción distinta del valor vacío.</td></tr>
+                    <tr><td>Términos</td><td>La casilla debe estar marcada (<code>checked</code>).</td></tr>
+                </tbody>
+            </table>
+            <p>Los campos de texto usan <code>input</code>; el programa y los términos usan <code>change</code>. La confirmación también se valida cuando cambia la contraseña, para mantener ambos valores sincronizados.</p>
+        </section>
+        <section id="carpetas">
+            <h2>4. Estructura de carpetas</h2>
+            <pre><code>validaciones_js/
+├── index.html
+├── GUIA.html
+├── css/
+│   └── estilos.css
+└── js/
+    └── validaciones.js</code></pre>
+            <ul>
+                <li><code>index.html</code>: estructura y campos del formulario.</li>
+                <li><code>css/estilos.css</code>: presentación, estados visuales y diseño adaptable.</li>
+                <li><code>js/validaciones.js</code>: reglas de validación y manejo del envío.</li>
+                <li><code>GUIA.html</code>: esta guía de construcción.</li>
+            </ul>
+        </section>
+
+        <section id="html">
+            <h2>5. Crear la estructura HTML básica</h2>
+            <p>Se declara el documento HTML, el idioma, la codificación, el ajuste para dispositivos y el título:</p>
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Registro de estudiantes&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;main class="contenedor"&gt;
+        &lt;h1&gt;Registro de estudiantes&lt;/h1&gt;
+        &lt;p&gt;Complete todos los campos para realizar su registro.&lt;/p&gt;
+        &lt;form id="formulario"&gt;
+            &lt;!-- Los campos se agregan paso a paso. --&gt;
+        &lt;/form&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+            <h3>Construir el formulario y sus campos</h3>
+            <p>El formulario agrupa los campos y permite escuchar un único evento <code>submit</code>. Cada campo tiene una etiqueta vinculada mediante <code>for</code> e <code>id</code> y reserva un elemento <code>&lt;small&gt;</code> para el mensaje:</p>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+    &lt;input type="text" id="nombre"&gt;
+    &lt;small id="errorNombre"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            
+        </section>
+
+        <section id="construccion-completa">
+            <h2>6. Construcción completa, campo por campo</h2>
+            <p>Ahora construiremos el contenido del <code>form</code> en el mismo orden del proyecto. Para cada campo, agrega primero su HTML y luego el bloque JavaScript que lo valida. Los <code>id</code> deben coincidir exactamente entre ambos archivos.</p>
+
+            <h3>Paso 1: nombre</h3>
+            <p>Agrega el control y el espacio para su mensaje dentro del formulario:</p>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+    &lt;input type="text" id="nombre"&gt;
+    &lt;small id="errorNombre"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <p>En JavaScript, comprueba que tenga al menos tres caracteres y ejecuta la función al escribir:</p>
+            <pre><code>// BLOQUE 1. VALIDAR NOMBRE
+function validarNombre() {
+    const nombre = document.getElementById("nombre").value.trim();
+    const errorNombre = document.getElementById("errorNombre");
+
+    if (nombre.length &lt; 3) {
+        errorNombre.textContent = "El nombre debe tener mínimo 3 caracteres.";
+        return false;
+    } else {
+        errorNombre.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("nombre").addEventListener("input", validarNombre);</code></pre>
+
+            <h3>Paso 2: apellidos</h3>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="apellidos"&gt;Apellidos&lt;/label&gt;
+    &lt;input type="text" id="apellidos"&gt;
+    &lt;small id="errorApellidos"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <pre><code>// BLOQUE 2. VALIDAR APELLIDOS
+function validarApellidos() {
+    const apellidos = document.getElementById("apellidos").value.trim();
+    const errorApellidos = document.getElementById("errorApellidos");
+
+    if (apellidos.length &lt; 3) {
+        errorApellidos.textContent = "Los apellidos deben tener mínimo 3 caracteres.";
+        return false;
+    } else {
+        errorApellidos.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("apellidos").addEventListener("input", validarApellidos);</code></pre>
+
+            <h3>Paso 3: documento</h3>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="documento"&gt;Documento&lt;/label&gt;
+    &lt;input type="text" id="documento"&gt;
+    &lt;small id="errorDocumento"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <pre><code>// BLOQUE 3. VALIDAR DOCUMENTO
+function validarDocumento() {
+    const documento = document.getElementById("documento").value.trim();
+    const errorDocumento = document.getElementById("errorDocumento");
+
+    // ! significa NOT (negación): indica que el patrón NO se debe cumplir.
+    // / / delimitan la expresión regular.
+    // ^ indica el inicio del texto.
+    // \d representa un dígito del 0 al 9.
+    // {6,10} indica que debe tener entre 6 y 10 dígitos.
+    // $ indica el final del texto.
+    // .test() comprueba si el documento cumple el patrón.
+
+    if (!/^\d{6,10}$/.test(documento)) {
+        errorDocumento.textContent = "Ingrese un documento entre 6 y 10 números.";
+        return false;
+    } else {
+        errorDocumento.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("documento").addEventListener("input", validarDocumento);</code></pre>
+            <p>En <code>/^\d{6,10}$/</code>, <code>\d</code> significa dígito y <code>{6,10}</code> limita la cantidad a entre seis y diez. Los símbolos <code>^</code> y <code>$</code> exigen que el texto completo siga el patrón.</p>
+
+            <h3>Paso 4: correo electrónico</h3>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="correo"&gt;Correo electrónico&lt;/label&gt;
+    &lt;input type="text" id="correo"&gt;
+    &lt;small id="errorCorreo"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <pre><code>// BLOQUE 4. VALIDAR CORREO
+function validarCorreo() {
+    const correo = document.getElementById("correo").value.trim();
+    const errorCorreo = document.getElementById("errorCorreo");
+
+    // ^ indica el inicio del texto.
+    // [^\s@]+ permite uno o más caracteres que no sean espacios ni arrobas.
+    // @ exige que exista una arroba.
+    // [^\s@]+ exige caracteres después de la arroba, sin espacios ni otra arroba.
+    // \. exige un punto después del dominio.
+    // [^\s@]+ exige caracteres después del punto.
+    // $ indica el final del texto.
+    // .test() comprueba si el correo cumple el patrón.
+    // ! niega el resultado: si NO cumple, muestra el error.
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+        errorCorreo.textContent = "Ingrese un correo electrónico válido.";
+        return false;
+    } else {
+        errorCorreo.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("correo").addEventListener("input", validarCorreo);</code></pre>
+            <p>El patrón requiere texto antes y después de <code>@</code>, un punto en el dominio y ningún espacio. Es una comprobación básica de formato.</p>
+
+            <h3>Paso 5: teléfono</h3>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="telefono"&gt;Teléfono&lt;/label&gt;
+    &lt;input type="text" id="telefono"&gt;
+    &lt;small id="errorTelefono"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <pre><code>// BLOQUE 5. VALIDAR TELÉFONO
+function validarTelefono() {
+    const telefono = document.getElementById("telefono").value.trim();
+    const errorTelefono = document.getElementById("errorTelefono");
+
+    if (!/^\d{10}$/.test(telefono)) {
+        errorTelefono.textContent = "El teléfono debe tener exactamente 10 números.";
+        return false;
+    } else {
+        errorTelefono.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("telefono").addEventListener("input", validarTelefono);</code></pre>
+
+            <h3>Paso 6: edad</h3>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="edad"&gt;Edad&lt;/label&gt;
+    &lt;input type="number" id="edad"&gt;
+    &lt;small id="errorEdad"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <pre><code>// BLOQUE 6. VALIDAR EDAD
+function validarEdad() {
+    const edad = parseInt(document.getElementById("edad").value.trim());
+    const errorEdad = document.getElementById("errorEdad");
+
+    if (isNaN(edad) || edad &lt; 18 || edad &gt; 60) {
+        errorEdad.textContent = "La edad debe estar entre 18 y 60 años.";
+        return false;
+    } else {
+        errorEdad.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("edad").addEventListener("input", validarEdad);</code></pre>
+            <p><code>parseInt()</code> convierte el texto en un número entero. <code>isNaN()</code> permite detectar si no se obtuvo un número.</p>
+
+            <h3>Paso 7: contraseña</h3>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="contrasena"&gt;Contraseña&lt;/label&gt;
+    &lt;input type="password" id="contrasena"&gt;
+    &lt;small id="errorContrasena"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <pre><code>// BLOQUE 7. VALIDAR CONTRASEÑA
+function validarContrasena() {
+    const contrasena = document.getElementById("contrasena").value;
+    const errorContrasena = document.getElementById("errorContrasena");
+
+    if (!/^(?=.*[A-Z])(?=.*\d).{8,}$/.test(contrasena)) {
+        errorContrasena.textContent = "Mínimo 8 caracteres, una mayúscula y un número.";
+        return false;
+    } else {
+        errorContrasena.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("contrasena").addEventListener("input", validarContrasena);</code></pre>
+            <p>Los fragmentos <code>(?=.*[A-Z])</code> y <code>(?=.*\d)</code> exigen una mayúscula y un dígito; <code>.{8,}</code> requiere al menos ocho caracteres.</p>
+
+            <h3>Paso 8: confirmar contraseña</h3>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="confirmar"&gt;Confirmar contraseña&lt;/label&gt;
+    &lt;input type="password" id="confirmar"&gt;
+    &lt;small id="errorConfirmar"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <pre><code>// BLOQUE 8. CONFIRMAR CONTRASEÑA
+function validarConfirmar() {
+    const contrasena = document.getElementById("contrasena").value;
+    const confirmar = document.getElementById("confirmar").value;
+    const errorConfirmar = document.getElementById("errorConfirmar");
+
+    if (confirmar === "" || confirmar !== contrasena) {
+        errorConfirmar.textContent = "Las contraseñas no coinciden.";
+        return false;
+    } else {
+        errorConfirmar.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("confirmar").addEventListener("input", validarConfirmar);
+document.getElementById("contrasena").addEventListener("input", validarConfirmar);</code></pre>
+            <p>La confirmación se valida al escribir en cualquiera de los dos campos. Así, si la contraseña original cambia, también se vuelve a comprobar la coincidencia.</p>
+
+            <h3>Paso 9: programa de formación</h3>
+            <pre><code>&lt;div class="grupo"&gt;
+    &lt;label for="programa"&gt;Programa de formación&lt;/label&gt;
+    &lt;select id="programa"&gt;
+        &lt;option value=""&gt;Seleccione un programa&lt;/option&gt;
+        &lt;option value="ADSO"&gt;Análisis y Desarrollo de Software&lt;/option&gt;
+        &lt;option value="Multimedia"&gt;Producción Multimedia&lt;/option&gt;
+        &lt;option value="Redes"&gt;Gestión de Redes&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;small id="errorPrograma"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <pre><code>// BLOQUE 9. VALIDAR PROGRAMA
+function validarPrograma() {
+    const programa = document.getElementById("programa").value;
+    const errorPrograma = document.getElementById("errorPrograma");
+
+    if (programa === "") {
+        errorPrograma.textContent = "Seleccione un programa de formación.";
+        return false;
+    } else {
+        errorPrograma.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("programa").addEventListener("change", validarPrograma);</code></pre>
+
+            <h3>Paso 10: aceptación de términos</h3>
+            <pre><code>&lt;div class="grupo terminos"&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" id="terminos"&gt;
+        Acepto los términos y condiciones
+    &lt;/label&gt;
+    &lt;small id="errorTerminos"&gt;&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+            <pre><code>// BLOQUE 10. VALIDAR TÉRMINOS Y CONDICIONES
+function validarTerminos() {
+    const terminos = document.getElementById("terminos").checked;
+    const errorTerminos = document.getElementById("errorTerminos");
+
+    if (!terminos) {
+        errorTerminos.textContent = "Debe aceptar los términos y condiciones.";
+        return false;
+    } else {
+        errorTerminos.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById("terminos").addEventListener("change", validarTerminos);</code></pre>
+
+            <h3>Paso 11: botón y mensaje final</h3>
+            <p>Después de los campos, agrega el botón de envío y un espacio para el mensaje de éxito:</p>
+            <pre><code>&lt;button type="submit" id="btnRegistrar"&gt;
+    Registrar estudiante
+&lt;/button&gt;
+
+&lt;p id="mensajeFinal"&gt;&lt;/p&gt;</code></pre>
+            <p>Todos los pasos anteriores deben estar dentro del formulario con el identificador <code>formulario</code>:</p>
+            <pre><code>&lt;form id="formulario"&gt;
+    &lt;!-- Agrega aquí, en orden, los campos de los pasos 1 al 10. --&gt;
+    &lt;button type="submit" id="btnRegistrar"&gt;Registrar estudiante&lt;/button&gt;
+    &lt;p id="mensajeFinal"&gt;&lt;/p&gt;
+&lt;/form&gt;</code></pre>
+        </section>
+
+        <section id="envio">
+            <h2>7. Validar el formulario y manejar el envío</h2>
+            <p>La función <code>validarFormulario()</code> llama a todos los validadores y combina sus resultados. El manejador <code>enviarFormulario(event)</code> llama a <code>event.preventDefault()</code> para evitar que el navegador envíe o recargue la página antes de verificar los campos.</p>
+            <p>Si todo es válido, se muestra el mensaje de registro exitoso, se reinicia el formulario, se limpian mensajes y estilos y se deshabilita el botón. Si hay campos inválidos, sus validadores muestran los errores. El botón también se deshabilita cuando <code>validarFormulario()</code> encuentra errores.</p>
+            <p>Este es el bloque que reúne las diez funciones. Colócalo después de los validadores:</p>
+            <pre><code>// BLOQUE 11. VALIDAR TODO EL FORMULARIO
+const formulario = document.getElementById("formulario");
+const btnRegistrar = document.getElementById("btnRegistrar");
+const mensajeFinal = document.getElementById("mensajeFinal");
+
+function validarFormulario() {
+    let resultado = true;
+
+    if (!validarNombre()) resultado = false;
+    if (!validarApellidos()) resultado = false;
+    if (!validarDocumento()) resultado = false;
+    if (!validarCorreo()) resultado = false;
+    if (!validarTelefono()) resultado = false;
+    if (!validarEdad()) resultado = false;
+    if (!validarContrasena()) resultado = false;
+    if (!validarConfirmar()) resultado = false;
+    if (!validarPrograma()) resultado = false;
+    if (!validarTerminos()) resultado = false;
+
+    btnRegistrar.disabled = !resultado;
+    return resultado;
+}</code></pre>
+            <p>Por último, evita el envío tradicional si hay errores y muestra el resultado si los datos son válidos:</p>
+            <pre><code>// BLOQUE 12. ENVIAR FORMULARIO
+function enviarFormulario(event) {
+    event.preventDefault();
+
+    if (validarFormulario()) {
+        mensajeFinal.textContent = "¡Estudiante registrado correctamente!";
+        mensajeFinal.style.color = "green";
+        formulario.reset();
+
+        const campos = document.querySelectorAll("input, select");
+        for (let i = 0; i &lt; campos.length; i++) {
+            campos[i].classList.remove("error", "exito");
+        }
+
+        const mensajes = document.querySelectorAll("small");
+        for (let i = 0; i &lt; mensajes.length; i++) {
+            mensajes[i].textContent = "";
+            mensajes[i].className = "";
+        }
+
+        btnRegistrar.disabled = true;
+    }
+}
+
+formulario.addEventListener("submit", enviarFormulario);</code></pre>
+            <p class="nota">La validación al escribir mejora la experiencia, pero no reemplaza la comprobación al enviar. En una aplicación real, el servidor también debe validar los datos, ya que las validaciones del navegador pueden omitirse.</p>
+        </section>
+
+
+    </main>
+</body>
+</html>
