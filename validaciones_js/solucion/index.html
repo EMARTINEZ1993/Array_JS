@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de estudiantes</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+    <main class="contenedor">
+
+        <h1>Registro de estudiantes</h1>
+        <p>Complete todos los campos para realizar su registro.</p>
+
+        <form id="formulario">
+
+            <div class="grupo">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre">
+                <small id="errorNombre"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="apellidos">Apellidos</label>
+                <input type="text" id="apellidos">
+                <small id="errorApellidos"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="documento">Documento</label>
+                <input type="text" id="documento">
+                <small id="errorDocumento"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="correo">Correo electrónico</label>
+                <input type="text" id="correo">
+                <small id="errorCorreo"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono">
+                <small id="errorTelefono"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="edad">Edad</label>
+                <input type="number" id="edad">
+                <small id="errorEdad"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="contrasena">Contraseña</label>
+                <input type="password" id="contrasena">
+                <small id="errorContrasena"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="confirmar">Confirmar contraseña</label>
+                <input type="password" id="confirmar">
+                <small id="errorConfirmar"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="programa">Programa de formación</label>
+                <select id="programa">
+                    <option value="">Seleccione un programa</option>
+                    <option value="ADSO">Análisis y Desarrollo de Software</option>
+                    <option value="Multimedia">Producción Multimedia</option>
+                    <option value="Redes">Gestión de Redes</option>
+                </select>
+                <small id="errorPrograma"></small>
+            </div>
+
+            <div class="grupo terminos">
+                <label>
+                    <input type="checkbox" id="terminos">
+                    Acepto los términos y condiciones
+                </label>
+                <small id="errorTerminos"></small>
+            </div>
+
+            <button type="submit" id="btnRegistrar">
+                Registrar estudiante
+            </button>
+
+            <p id="mensajeFinal"></p>
+
+        </form>
+
+    </main>
+
+    <script src="js/validaciones.js"></script>
+
+</body>
+</html>
